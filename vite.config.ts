@@ -4,6 +4,6 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
-    dir: 'tests'
-  }
+    dir: 'tests',
+  },
 })
