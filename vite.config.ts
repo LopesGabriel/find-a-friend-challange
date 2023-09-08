@@ -5,5 +5,6 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
     dir: 'tests',
+    environmentMatchGlobs: [['tests/e2e/**', 'prisma']],
   },
 })
