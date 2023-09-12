@@ -19,4 +19,5 @@ export interface IFindPetsArgs {
 export interface IPetRepository {
   create(data: Prisma.PetCreateInput): Promise<Pet>
   findPets(data: IFindPetsArgs): Promise<Pet[]>
+  findById(id: string): Promise<Pet | null>
 }

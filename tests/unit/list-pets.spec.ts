@@ -12,7 +12,7 @@ import {
 } from '@prisma/client'
 import { it, describe, beforeEach, expect } from 'vitest'
 
-describe('Create Pet Use Case', () => {
+describe('List Pet Use Case', () => {
   let petRepository: InMemoryPetRepository
   let orgRepository: InMemoryOrgRepository
   let sto: ListPetUseCase
