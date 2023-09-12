@@ -14,4 +14,10 @@ export class PrismaOrgRepository implements IOrgRepository {
       where: { email },
     })
   }
+
+  getById(id: string): Promise<Org | null> {
+    return prisma.org.findUnique({
+      where: { id },
+    })
+  }
 }
