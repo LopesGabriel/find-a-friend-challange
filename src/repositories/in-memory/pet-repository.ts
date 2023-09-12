@@ -1,5 +1,5 @@
 import { Prisma, Pet } from '@prisma/client'
-import { IPetRepository } from '../pet-repository'
+import { IFindPetsArgs, IPetRepository } from '../pet-repository'
 import { randomUUID } from 'crypto'
 
 export class InMemoryPetRepository implements IPetRepository {
@@ -24,5 +24,33 @@ export class InMemoryPetRepository implements IPetRepository {
 
     this.pets.push(newPet)
     return newPet
+  }
+
+  async findPets({
+    orgIds,
+    energyLevel,
+    size,
+    age,
+    independencyLevel,
+  }: IFindPetsArgs): Promise<Pet[]> {
+    let pets = this.pets.filter((pet) => orgIds.includes(pet.org_id))
+
+    if (size) {
+      pets = pets.filter((pet) => pet.size === size)
+    }
+
+    if (energyLevel) {
+      pets = pets.filter((pet) => pet.energy === energyLevel)
+    }
+
+    if (age) {
+      pets = pets.filter((pet) => pet.age === age)
+    }
+
+    if (independencyLevel) {
+      pets = pets.filter((pet) => pet.independencyLevel === independencyLevel)
+    }
+
+    return pets
   }
 }

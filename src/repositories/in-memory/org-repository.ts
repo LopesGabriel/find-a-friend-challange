@@ -33,4 +33,8 @@ export class InMemoryOrgRepository implements IOrgRepository {
   async getById(id: string): Promise<Org | null> {
     return this.orgs.find((org) => org.id === id) ?? null
   }
+
+  async findByAddressContaining(value: string): Promise<Org[]> {
+    return this.orgs.filter((org) => org.address.includes(value))
+  }
 }
