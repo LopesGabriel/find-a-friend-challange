@@ -2,7 +2,7 @@ import { expect, it, describe, beforeAll, afterAll } from 'vitest'
 import request from 'supertest'
 import { app } from '@/app'
 
-describe('Authenticate (e2e)', () => {
+describe('Create Org (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -11,7 +11,7 @@ describe('Authenticate (e2e)', () => {
     await app.close()
   })
 
-  it('should be able to authenticate the org', async () => {
+  it('should be able to create org', async () => {
     const email = 'john.doe@example.com'
     const password = '123456'
 

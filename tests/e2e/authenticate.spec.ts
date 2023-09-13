@@ -12,7 +12,6 @@ describe('Authenticate (e2e)', () => {
   })
 
   it('should be able to authenticate the org', async () => {
-    console.log(process.env.DATABASE_URL)
     const email = 'john.doe@example.com'
     const password = '123456'
 
