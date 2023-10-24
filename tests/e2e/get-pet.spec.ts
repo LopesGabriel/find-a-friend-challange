@@ -2,7 +2,7 @@ import { expect, it, describe, beforeAll, afterAll } from 'vitest'
 import request from 'supertest'
 import { app } from '@/app'
 
-describe('List Pets (e2e)', () => {
+describe('Get Pet (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -11,7 +11,7 @@ describe('List Pets (e2e)', () => {
     await app.close()
   })
 
-  it('should be able to list pets by city', async () => {
+  it('should be able to Get pet by id', async () => {
     const email = 'john.doe@example.com'
     const password = '123456'
 
@@ -32,7 +32,7 @@ describe('List Pets (e2e)', () => {
       password,
     })
 
-    await request(app.server)
+    const createPetResponse = await request(app.server)
       .post('/pet')
       .auth(authResponse.body.token, { type: 'bearer' })
       .send({
@@ -47,41 +47,20 @@ describe('List Pets (e2e)', () => {
       })
       .expect(201)
 
-    await request(app.server)
-      .post('/pet')
-      .auth(authResponse.body.token, { type: 'bearer' })
-      .send({
-        age: 'PRE_TEEN',
-        energy: 'HIGH',
-        environment: 'LARGE',
-        independencyLevel: 'HIGH',
-        name: 'Maia',
-        requisits: ['Be patient', 'Send pictures of it each 2 months'],
-        size: 'SMALL',
-        about: 'Maia is a Pintcher with a lot of energy to play',
-      })
-      .expect(201)
+    const petId = createPetResponse.body.data.id
 
     const response = await request(app.server)
-      .get('/pet/filter/SHVP')
+      .get(`/pet/${petId}`)
       .auth(authResponse.body.token, { type: 'bearer' })
       .send()
 
     expect(response.body.data).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          id: expect.any(String),
-          name: 'John',
-          independencyLevel: 'MEDIUM',
-          energy: 'HIGH',
-        }),
-        expect.objectContaining({
-          id: expect.any(String),
-          name: 'Maia',
-          independencyLevel: 'HIGH',
-          energy: 'HIGH',
-        }),
-      ]),
+      expect.objectContaining({
+        id: expect.any(String),
+        name: 'John',
+        independencyLevel: 'MEDIUM',
+        energy: 'HIGH',
+      }),
     )
   })
 })
